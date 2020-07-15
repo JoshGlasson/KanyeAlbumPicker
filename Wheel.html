@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Wheel of Kanye</title>
+    <style type="text/css">
+    text{
+        font-family:Helvetica, Arial, sans-serif;
+        font-size:11px;
+        pointer-events:none;
+    }
+    #chart{
+        position: relative;
+        width:200px;
+        height:200px;
+        top:0;
+        left:0;
+    }
+    #spotifyLink{
+        position: absolute;
+        width:500px;
+        height:200px;
+        top:450px;
+        left:850px;
+    }
+    #spotifyLink h1{
+        font-size: 40px;
+        font-weight: bold;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        position: relative;
+        padding: 0;
+        margin: 0;
+        -webkit-transform:translate(0,-50%);
+                transform:translate(0,-50%);
+    }
+    #appleMusicLink {
+        position: absolute;
+        width:500px;
+        height:200px;
+        top:600px;
+        left:850px;
+    }
+    #appleMusicLink h1{
+        font-size: 40px;
+        font-weight: bold;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        position: relative;
+        padding: 0;
+        margin: 0;
+        -webkit-transform:translate(0,-50%);
+                transform:translate(0,-50%);
+    }
+    body {
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        width:1000px;
+        height: 1000px;
+    }
+    #title {
+        text-align: center;
+    }
+    </style>
+    
+</head>
+<body id="background">
+    <div id="title">
+        <h1>The Wheel of Kanye</h1>
+        <h2>Spin to decide what to listen to</h2>
+    </div>
+
+    <div></div>
+        <div id="chart"></div>
+        <div id="spotifyLink"><a id="spotifyLinkA" href="#" target="_blank"><h1></h1></a></div>
+        <div id="appleMusicLink"><a id="appleMusicLinkA" href="#" target="_blank"><h1></h1></a></div>
+    </div>
+
+  
+    
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+        var padding = {top:20, right:40, bottom:0, left:100},
+            w = 800 - padding.left - padding.right,
+            h = 800 - padding.top  - padding.bottom,
+            r = Math.min(w, h)/2,
+            rotation = 0,
+            oldrotation = 0,
+            picked = 100000,
+            oldpick = [],
+            color = d3.scale.category20();
+        var data = [
+                    {"label":"The College Dropout",  "value":1,  "spotifyLink":"https://open.spotify.com/album/4Uv86qWpGTxf7fU7lG5X6F?si=Wc2EYcoYTJOC6aRoFJWrWQ", "appleMusicLink": "https://music.apple.com/us/album/the-college-dropout/1412872568", "albumArt":"./images/college_dropout.jpg"},
+                    {"label":"Late Registration",  "value":1,  "spotifyLink":"https://open.spotify.com/album/0Ds6i3h0F9RcYIKAD5Olum?si=t_F8SL9IRGqnWo8N1FLtyg", "appleMusicLink": "https://music.apple.com/us/album/late-registration/1440668749", "albumArt":"./images/late_registration.jpg"},
+                    {"label":"Graduation",  "value":1,  "spotifyLink":"https://open.spotify.com/album/5fPglEDz9YEwRgbLRvhCZy?si=iu9mGVr4SvWg5SG6w3qCtQ", "appleMusicLink": "https://music.apple.com/us/album/graduation/1451142304", "albumArt":"./images/graduation.jpg"},
+                    {"label":"808s & Heartbreak",  "value":1,  "spotifyLink":"https://open.spotify.com/album/3WFTGIO6E3Xh4paEOBY9OU?si=Y6dK49ipTtOKbFFJ-O0SUw", "appleMusicLink": "https://music.apple.com/us/album/808s-heartbreak/1441410287", "albumArt":"./images/808s_heartbreak.jpg"},
+                    {"label":"My Beautiful Dark Twisted Fantasy",  "value":1,  "spotifyLink":"https://open.spotify.com/album/20r762YmB5HeofjMCiPMLv?si=LUE-AxfxQwmbCs2TNU2i2Q", "appleMusicLink": "https://music.apple.com/us/album/my-beautiful-dark-twisted-fantasy/1440742903", "albumArt":"./images/my_beautiful_dark_twisted_fantasy.jpg"},
+                    {"label":"Watch The Throne",  "value":1,  "spotifyLink":"https://open.spotify.com/album/2P2Xwvh2xWXIZ1OWY9S9o5?si=LbXfYreVT2GebWqmIP35yg", "appleMusicLink": "https://music.apple.com/us/album/watch-the-throne-deluxe/1440845249", "albumArt":"./images/watch_the_throne.jpg"},
+                    {"label":"Yeezus",  "value":1,  "spotifyLink":"https://open.spotify.com/album/7D2NdGvBHIavgLhmcwhluK?si=mBvJRuyXTkOF8vpAeMQjWg", "appleMusicLink": "https://music.apple.com/us/album/yeezus/1440873068", "albumArt":"./images/yeezus.jpg"},
+                    {"label":"The Life of Pablo",  "value":1,  "spotifyLink":"https://open.spotify.com/album/7gsWAHLeT0w7es6FofOXk1?si=qhlgAPPbQ5O_JPdxJGpuJQ", "appleMusicLink": "https://music.apple.com/us/album/the-life-of-pablo/1443063578", "albumArt":"./images/the_life_of_pablo.jpg"},
+                    {"label":"Ye",  "value":1,  "spotifyLink":"https://open.spotify.com/album/2Ek1q2haOnxVqhvVKqMvJe?si=ql1iSZsXTv6B0DgCgnLhbg", "appleMusicLink": "https://music.apple.com/us/album/ye/1441456689", "albumArt":"./images/ye.jpg"},
+                    {"label":"Kids See Ghosts",  "value":1,  "spotifyLink":"https://open.spotify.com/album/6pwuKxMUkNg673KETsXPUV?si=IkSpD_CfRoelA8A-7WrlkA", "appleMusicLink": "https://music.apple.com/us/album/kids-see-ghosts/1396710872", "albumArt":"./images/kids_see_ghosts.jpg"},
+                    {"label":"Jesus Is King",  "value":1,  "spotifyLink":"https://open.spotify.com/album/0FgZKfoU2Br5sHOfvZKTI9?si=w7PQHzKlR5ipPDub3pF9cQ", "appleMusicLink": "https://music.apple.com/us/album/jesus-is-king/1484936940", "albumArt":"./images/jesus_is_king.jpg"},
+                    {"label":"All Kanye",  "value":1,  "spotifyLink":"https://open.spotify.com/playlist/5mzkM43BC6fTJUxBqKEtRd?si=P-FH0ghRRpCMKBv9lZTkpw", "appleMusicLink": "https://music.apple.com/us/playlist/kanye-west-essentials/pl.f8b1e707c4d242298a27c75534e4218d", "albumArt":"./images/kanye_all.jpg"}
+        ];
+        var svg = d3.select('#chart')
+            .append("svg")
+            .data([data])
+            .attr("width",  w + padding.left + padding.right)
+            .attr("height", h + padding.top + padding.bottom);
+        var container = svg.append("g")
+            .attr("class", "chartholder")
+            .attr("transform", "translate(" + (w/2 + padding.left) + "," + (h/2 + padding.top) + ")");
+        var vis = container
+            .append("g");
+            
+        var pie = d3.layout.pie().sort(null).value(function(d){return 1;});
+        // declare an arc generator function
+        var arc = d3.svg.arc().outerRadius(r);
+        // select paths, use arc generator to draw
+        var arcs = vis.selectAll("g.slice")
+            .data(pie)
+            .enter()
+            .append("g")
+            .attr("class", "slice");
+            
+        arcs.append("path")
+            .attr("fill", function(d, i){ return color(i); })
+            .attr("d", function (d) { return arc(d); });
+
+        // arcs.append("image")
+        // .attr("transform", function(d){
+        //     d.innerRadius = 0;
+        //     d.outerRadius = r;
+        //     d.angle = (d.startAngle + d.endAngle)/2;
+        //     return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")translate(" + (d.outerRadius -10) +")";
+        // }) 
+        // .attr('height', 200)
+        // .attr('width', 250)
+        // .attr('y', '-90')
+        // .attr('x', '-237')
+        // .attr("xlink:href", function(d, i){ return data[i].albumArt; });
+
+        arcs.append("image")
+        .attr("transform", function(d){
+            d.innerRadius = 0;
+            d.outerRadius = r;
+            d.angle = (d.startAngle + d.endAngle)/2;
+            return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")translate(" + (d.outerRadius -10) +")";
+        }) 
+        .attr('height', 60)
+        .attr('width', 60)
+        .attr('y', '-30 ')
+        .attr('x', '-200')
+        .attr("xlink:href", function(d, i){ return data[i].albumArt; });
+
+        // add the text
+        arcs.append("text").attr("transform", function(d){
+                d.innerRadius = 0;
+                d.outerRadius = r;
+                d.angle = (d.startAngle + d.endAngle)/2;
+                return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")translate(" + (d.outerRadius -10) +")";
+            })
+            .attr("text-anchor", "end")
+            .text( function(d, i) {
+                return data[i].label;
+            });
+        container.on("click", spin);
+        function spin(d){
+            container.on("click", null);
+            //all slices have been seen, all done
+            console.log("OldPick: " + oldpick.length, "Data length: " + data.length);
+            if(oldpick.length == data.length){
+                console.log("done");
+                container.on("click", null);
+                return;
+            }
+            var  ps       = 360/data.length,
+                 pieslice = Math.round(1440/data.length),
+                 rng      = Math.floor((Math.random() * 1440) + 360);
+                
+            rotation = (Math.round(rng / ps) * ps);
+            
+            picked = Math.round(data.length - (rotation % 360)/ps);
+            picked = picked >= data.length ? (picked % data.length) : picked;
+            if(oldpick.indexOf(picked) !== -1){
+                d3.select(this).call(spin);
+                return;
+            } else {
+                oldpick.push(picked);
+            }
+            rotation += 90 - Math.round(ps/2);
+            vis.transition()
+                .duration(3000)
+                .attrTween("transform", rotTween)
+                .each("end", function(){
+                    //mark spotifyLink as seen
+                    d3.select(".slice:nth-child(" + (picked + 1) + ") path")
+                        .attr("fill", "#111");
+                    
+                    //populate spotifyLink
+                    document.getElementById("spotifyLinkA").setAttribute("href", data[picked].spotifyLink);
+                    document.getElementById("appleMusicLinkA").setAttribute("href", data[picked].appleMusicLink);
+                    
+                    document.getElementById("background").setAttribute("style", "background-image: url('"+ data[picked].albumArt + "');");
+
+                    d3.select("#spotifyLink h1")
+                        .text(data[picked].label + " on Spotify");
+
+                    d3.select("#appleMusicLink h1")
+                        .text(data[picked].label + " on Apple Music");
+
+                    oldrotation = rotation;
+                
+                    container.on("click", spin);
+                });
+        }
+        //make arrow
+        svg.append("g")
+            .attr("transform", "translate(" + (w + padding.left + padding.right) + "," + ((h/2)+padding.top) + ")")
+            .append("path")
+            .attr("d", "M-" + (r*.15) + ",0L0," + (r*.05) + "L0,-" + (r*.05) + "Z")
+            .style({"fill":"black"});
+        //draw spin circle
+        container.append("circle")
+            .attr("cx", 0)
+            .attr("cy", 0)
+            .attr("r", 60)
+            .style({"fill":"white","cursor":"pointer"});
+        //spin text
+        container.append("text")
+            .attr("x", 0)
+            .attr("y", 15)
+            .attr("text-anchor", "middle")
+            .text("SPIN")
+            .style({"font-weight":"bold", "font-size":"30px"});
+        
+        
+        function rotTween(to) {
+          var i = d3.interpolate(oldrotation % 360, rotation);
+          return function(t) {
+            return "rotate(" + i(t) + ")";
+          };
+        }
+    </script>
+</body>
+</html>
