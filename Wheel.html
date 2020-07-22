@@ -75,10 +75,11 @@
 
     <div></div>
         <div id="chart"></div>
-        <div id="spotifyLink"><a id="spotifyLinkA" href="#" target="_blank"><h1></h1></a></div>
+        <div id="spotifyLink"><a id="spotifyLinkA" href="#"><h1></h1></a></div>
         <div id="appleMusicLink"><a id="appleMusicLinkA" href="#" target="_blank"><h1></h1></a></div>
 
         <iframe id="embedSpotify" src="" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
     </div>
 
   
@@ -95,18 +96,18 @@
             oldpick = [],
             color = d3.scale.category20();
         var data = [
-                    {"label":"The College Dropout",  "value":1,  "spotifyLink":"https://open.spotify.com/album/4Uv86qWpGTxf7fU7lG5X6F?si=Wc2EYcoYTJOC6aRoFJWrWQ", "appleMusicLink": "https://music.apple.com/us/album/the-college-dropout/1412872568", "albumArt":"./images/college_dropout.jpg"},
-                    {"label":"Late Registration",  "value":1,  "spotifyLink":"https://open.spotify.com/album/0Ds6i3h0F9RcYIKAD5Olum?si=t_F8SL9IRGqnWo8N1FLtyg", "appleMusicLink": "https://music.apple.com/us/album/late-registration/1440668749", "albumArt":"./images/late_registration.jpg"},
-                    {"label":"Graduation",  "value":1,  "spotifyLink":"https://open.spotify.com/album/5fPglEDz9YEwRgbLRvhCZy?si=iu9mGVr4SvWg5SG6w3qCtQ", "appleMusicLink": "https://music.apple.com/us/album/graduation/1451142304", "albumArt":"./images/graduation.jpg"},
-                    {"label":"808s & Heartbreak",  "value":1,  "spotifyLink":"https://open.spotify.com/album/3WFTGIO6E3Xh4paEOBY9OU?si=Y6dK49ipTtOKbFFJ-O0SUw", "appleMusicLink": "https://music.apple.com/us/album/808s-heartbreak/1441410287", "albumArt":"./images/808s_heartbreak.jpg"},
-                    {"label":"My Beautiful Dark Twisted Fantasy",  "value":1,  "spotifyLink":"https://open.spotify.com/album/20r762YmB5HeofjMCiPMLv?si=LUE-AxfxQwmbCs2TNU2i2Q", "appleMusicLink": "https://music.apple.com/us/album/my-beautiful-dark-twisted-fantasy/1440742903", "albumArt":"./images/my_beautiful_dark_twisted_fantasy.jpg"},
-                    {"label":"Watch The Throne",  "value":1,  "spotifyLink":"https://open.spotify.com/album/2P2Xwvh2xWXIZ1OWY9S9o5?si=LbXfYreVT2GebWqmIP35yg", "appleMusicLink": "https://music.apple.com/us/album/watch-the-throne-deluxe/1440845249", "albumArt":"./images/watch_the_throne.jpg"},
-                    {"label":"Yeezus",  "value":1,  "spotifyLink":"https://open.spotify.com/album/7D2NdGvBHIavgLhmcwhluK?si=mBvJRuyXTkOF8vpAeMQjWg", "appleMusicLink": "https://music.apple.com/us/album/yeezus/1440873068", "albumArt":"./images/yeezus.jpg"},
-                    {"label":"The Life of Pablo",  "value":1,  "spotifyLink":"https://open.spotify.com/album/7gsWAHLeT0w7es6FofOXk1?si=qhlgAPPbQ5O_JPdxJGpuJQ", "appleMusicLink": "https://music.apple.com/us/album/the-life-of-pablo/1443063578", "albumArt":"./images/the_life_of_pablo.jpg"},
-                    {"label":"Ye",  "value":1,  "spotifyLink":"https://open.spotify.com/album/2Ek1q2haOnxVqhvVKqMvJe?si=ql1iSZsXTv6B0DgCgnLhbg", "appleMusicLink": "https://music.apple.com/us/album/ye/1441456689", "albumArt":"./images/ye.jpg"},
-                    {"label":"Kids See Ghosts",  "value":1,  "spotifyLink":"https://open.spotify.com/album/6pwuKxMUkNg673KETsXPUV?si=IkSpD_CfRoelA8A-7WrlkA", "appleMusicLink": "https://music.apple.com/us/album/kids-see-ghosts/1396710872", "albumArt":"./images/kids_see_ghosts.jpg"},
-                    {"label":"Jesus Is King",  "value":1,  "spotifyLink":"https://open.spotify.com/album/0FgZKfoU2Br5sHOfvZKTI9?si=w7PQHzKlR5ipPDub3pF9cQ", "appleMusicLink": "https://music.apple.com/us/album/jesus-is-king/1484936940", "albumArt":"./images/jesus_is_king.jpg"},
-                    {"label":"All Kanye",  "value":1,  "spotifyLink":"https://open.spotify.com/playlist/5mzkM43BC6fTJUxBqKEtRd?si=P-FH0ghRRpCMKBv9lZTkpw", "appleMusicLink": "https://music.apple.com/us/playlist/kanye-west-essentials/pl.f8b1e707c4d242298a27c75534e4218d", "albumArt":"./images/kanye_all.jpg"}
+                    {"label":"The College Dropout",  "value":1,  "spotifyLink":"4Uv86qWpGTxf7fU7lG5X6F", "appleMusicLink": "https://music.apple.com/us/album/the-college-dropout/1412872568", "albumArt":"./images/college_dropout.jpg", "type": "album"},
+                    {"label":"Late Registration",  "value":1,  "spotifyLink":"0Ds6i3h0F9RcYIKAD5Olum", "appleMusicLink": "https://music.apple.com/us/album/late-registration/1440668749", "albumArt":"./images/late_registration.jpg", "type": "album"},
+                    {"label":"Graduation",  "value":1,  "spotifyLink":"5fPglEDz9YEwRgbLRvhCZy", "appleMusicLink": "https://music.apple.com/us/album/graduation/1451142304", "albumArt":"./images/graduation.jpg", "type": "album"},
+                    {"label":"808s & Heartbreak",  "value":1,  "spotifyLink":"3WFTGIO6E3Xh4paEOBY9OU", "appleMusicLink": "https://music.apple.com/us/album/808s-heartbreak/1441410287", "albumArt":"./images/808s_heartbreak.jpg", "type": "album"},
+                    {"label":"My Beautiful Dark Twisted Fantasy",  "value":1,  "spotifyLink":"20r762YmB5HeofjMCiPMLv", "appleMusicLink": "https://music.apple.com/us/album/my-beautiful-dark-twisted-fantasy/1440742903", "albumArt":"./images/my_beautiful_dark_twisted_fantasy.jpg", "type": "album"},
+                    {"label":"Watch The Throne",  "value":1,  "spotifyLink":"2P2Xwvh2xWXIZ1OWY9S9o5", "appleMusicLink": "https://music.apple.com/us/album/watch-the-throne-deluxe/1440845249", "albumArt":"./images/watch_the_throne.jpg", "type": "album"},
+                    {"label":"Yeezus",  "value":1,  "spotifyLink":"7D2NdGvBHIavgLhmcwhluK", "appleMusicLink": "https://music.apple.com/us/album/yeezus/1440873068", "albumArt":"./images/yeezus.jpg", "type": "album"},
+                    {"label":"The Life of Pablo",  "value":1,  "spotifyLink":"7gsWAHLeT0w7es6FofOXk1", "appleMusicLink": "https://music.apple.com/us/album/the-life-of-pablo/1443063578", "albumArt":"./images/the_life_of_pablo.jpg", "type": "album"},
+                    {"label":"Ye",  "value":1,  "spotifyLink":"2Ek1q2haOnxVqhvVKqMvJe", "appleMusicLink": "https://music.apple.com/us/album/ye/1441456689", "albumArt":"./images/ye.jpg", "type": "album"},
+                    {"label":"Kids See Ghosts",  "value":1,  "spotifyLink":"6pwuKxMUkNg673KETsXPUV", "appleMusicLink": "https://music.apple.com/us/album/kids-see-ghosts/1396710872", "albumArt":"./images/kids_see_ghosts.jpg", "type": "album"},
+                    {"label":"Jesus Is King",  "value":1,  "spotifyLink":"0FgZKfoU2Br5sHOfvZKTI9", "appleMusicLink": "https://music.apple.com/us/album/jesus-is-king/1484936940", "albumArt":"./images/jesus_is_king.jpg", "type": "album"},
+                    {"label":"All Kanye",  "value":1,  "spotifyLink":"https://open.spotify.com/playlist/5mzkM43BC6fTJUxBqKEtRd?si=P-FH0ghRRpCMKBv9lZTkpw", "appleMusicLink": "https://music.apple.com/us/playlist/kanye-west-essentials/pl.f8b1e707c4d242298a27c75534e4218d", "albumArt":"./images/kanye_all.jpg", "type": "playlist"}
         ];
         var svg = d3.select('#chart')
             .append("svg")
@@ -204,9 +205,9 @@
                         .attr("fill", "#111");
                     
                     //populate spotifyLink
-                    document.getElementById("spotifyLinkA").setAttribute("href", data[picked].spotifyLink);
+                    document.getElementById("spotifyLinkA").setAttribute("href", "spotify:" + data[picked].type + ":" + data[picked].spotifyLink);
                     document.getElementById("appleMusicLinkA").setAttribute("href", data[picked].appleMusicLink);
-                    document.getElementById("embedSpotify").setAttribute("src", data[picked].spotifyLink);
+                    document.getElementById("embedSpotify").setAttribute("src", "https://open.spotify.com/embed/"+ data[picked].type + "/" + data[picked].spotifyLink);
                     
                     document.getElementById("background").setAttribute("style", "background-image: url('"+ data[picked].albumArt + "');");
 
