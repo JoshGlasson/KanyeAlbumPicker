@@ -4,7 +4,20 @@
     <meta charset="utf-8">
     <title>Wheel of Kanye</title>
     <style type="text/css">
-    text{
+
+    body, html {
+        height: 100%;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    @media (max-width: 768px) {
+        body {
+            height:100vh;
+        }
+    }
+    text {
         font-family:Helvetica, Arial, sans-serif;
         font-size:11px;
         pointer-events:none;
@@ -64,6 +77,16 @@
     #title {
         text-align: center;
     }
+
+    .bg {
+        /* Full height */
+        height: 100%; 
+
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
     </style>
     
 </head>
@@ -106,7 +129,7 @@
                     {"label":"Ye",  "value":1,  "spotifyLink":"2Ek1q2haOnxVqhvVKqMvJe", "appleMusicLink": "https://music.apple.com/us/album/ye/1441456689", "albumArt":"./images/ye.jpg", "type": "album"},
                     {"label":"Kids See Ghosts",  "value":1,  "spotifyLink":"6pwuKxMUkNg673KETsXPUV", "appleMusicLink": "https://music.apple.com/us/album/kids-see-ghosts/1396710872", "albumArt":"./images/kids_see_ghosts.jpg", "type": "album"},
                     {"label":"Jesus Is King",  "value":1,  "spotifyLink":"0FgZKfoU2Br5sHOfvZKTI9", "appleMusicLink": "https://music.apple.com/us/album/jesus-is-king/1484936940", "albumArt":"./images/jesus_is_king.jpg", "type": "album"},
-                    {"label":"All Kanye",  "value":1,  "spotifyLink":"https://open.spotify.com/playlist/5mzkM43BC6fTJUxBqKEtRd?si=P-FH0ghRRpCMKBv9lZTkpw", "appleMusicLink": "https://music.apple.com/us/playlist/kanye-west-essentials/pl.f8b1e707c4d242298a27c75534e4218d", "albumArt":"./images/kanye_all.jpg", "type": "playlist"}
+                    {"label":"All Kanye",  "value":1,  "spotifyLink":"5mzkM43BC6fTJUxBqKEtRd", "appleMusicLink": "https://music.apple.com/us/playlist/kanye-west-essentials/pl.f8b1e707c4d242298a27c75534e4218d", "albumArt":"./images/kanye_all.jpg", "type": "playlist"}
         ];
         var svg = d3.select('#chart')
             .append("svg")
